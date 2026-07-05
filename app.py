@@ -12,7 +12,7 @@ active_token = None
 # --- 1. HOME PAGE ---
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html.html')
 
 # --- 2. GET TOKEN PAGE ---
 @app.route('/get-token', methods=['GET', 'POST'])
@@ -49,19 +49,19 @@ def get_token():
 # --- 3. PRODUCTS PAGE ---
 @app.route('/products')
 def products():
-    return render_template('product.html')
+    return render_template('products.html.html')
 
 # --- 4. CONTACT PAGE ---
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contact.html.html')
 
 # --- 5. ADMIN PANEL ---
 @app.route('/admin')
 def admin():
     global active_token
     shop_details = {"name": "Divya Collection"}
-    return render_template('admin.html', tokens=tokens, active_token=active_token, shop_details=shop_details)
+    return render_template('admin.html.html', tokens=tokens, active_token=active_token, shop_details=shop_details)
 
 # --- 6. NEXT PERSON BUTTON ---
 @app.route('/next-person')
@@ -77,3 +77,4 @@ def next_person():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+    
