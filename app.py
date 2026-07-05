@@ -9,24 +9,15 @@ tokens = []
 next_token_no = 101
 active_token = None
 
-def get_actual_template(base_name):
-    templates_dir = 'templates'
-    if os.path.exists(templates_dir):
-        for file in os.listdir(templates_dir):
-            if file.startswith(base_name):
-                return file
-    return base_name
-
 # --- 1. HOME PAGE ---
 @app.route('/')
 def index():
-    return render_template(get_actual_template('index'))
+    return render_template('index.html')
 
 # --- 2. GET TOKEN PAGE ---
 @app.route('/get-token', methods=['GET', 'POST'])
 def get_token():
     global next_token_no
-    t_name = get_actual_template('get_token')
     
     if request.method == 'POST':
         name = request.form.get('name')
@@ -40,7 +31,8 @@ def get_token():
 
             # Creating WhatsApp Link for Confirmation
             raw_msg = (
-                f"✨🛍️ *DIVYA COLLECTION* 🛍️---\n"
+                f"✨🛍️ *DIVYA COLLECTION* 🛍️✨\n"
+                f"━━━━━━━━━━━━━━━━━━━\n\n"
                 f"Hello {name},\n"
                 f"Your token has been successfully booked! 🎉\n\n"
                 f"🆔 *Token Number:* {token_no}\n\n"
@@ -50,29 +42,26 @@ def get_token():
             formatted_phone = f"91{phone}" if len(phone) == 10 else phone
             whatsapp_url = f"https://wa.me/{formatted_phone}?text={encoded_msg}"
 
-            return render_template(t_name, success=True, token_no=token_no, whatsapp_url=whatsapp_url)
+            return render_template('get_token.html.html', success=True, token_no=token_no, whatsapp_url=whatsapp_url)
 
-    return render_template(t_name, success=False)
+    return render_template('get_token.html.html', success=False)
 
 # --- 3. PRODUCTS PAGE ---
 @app.route('/products')
 def products():
-    template_file = get_actual_template('product')
-    if not os.path.exists(os.path.join('templates', template_file)):
-        template_file = get_actual_template('products')
-    return render_template(template_file)
+    return render_template('product.html')
 
 # --- 4. CONTACT PAGE ---
 @app.route('/contact')
 def contact():
-    return render_template(get_actual_template('contact'))
+    return render_template('contact.html')
 
 # --- 5. ADMIN PANEL ---
 @app.route('/admin')
 def admin():
     global active_token
     shop_details = {"name": "Divya Collection"}
-    return render_template(get_actual_template('admin'), tokens=tokens, active_token=active_token, shop_details=shop_details)
+    return render_template('admin.html', tokens=tokens, active_token=active_token, shop_details=shop_details)
 
 # --- 6. NEXT PERSON BUTTON ---
 @app.route('/next-person')
