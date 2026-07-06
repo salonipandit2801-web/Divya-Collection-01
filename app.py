@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 import os
 import urllib.parse
 
-app = Flask(__name__)
+# आपण फ्लॅस्कला सांगतोय की templates फोल्डर बाहेरच आहे (root मध्ये)
+app = Flask(__name__, template_folder='.')
 
 tokens = []
 next_token_no = 101
