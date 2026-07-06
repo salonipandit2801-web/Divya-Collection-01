@@ -24,7 +24,7 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Format 1: Success Booking Message with proper encoding for emojis
+            # Message 1: Token Successfully Booked (Sent to Customer)
             raw_msg = (
                 "✨🛍️ *DIVYA COLLECTION* 🛍️✨\n"
                 "━━━━━━━━━━━━━━━━━━━\n\n"
@@ -50,7 +50,26 @@ def contact():
 @app.route('/admin')
 def admin():
     global active_token
-    return render_template('admin.html.html', tokens=tokens, active_token=active_token)
+    # If admin calls next person, generate the Counter Alert WhatsApp URL
+    whatsapp_admin_url = None
+    if active_token:
+        name = active_token['name']
+        token_no = active_token['token']
+        phone = active_token['phone']
+        
+        # Message 2: Your turn will come in 10 minutes! (Sent by Admin)
+        raw_msg_admin = (
+            "✨🛍️ *DIVYA COLLECTION* 🛍️✨\n"
+            "━━━━━━━━━━━━━━━━━━━\n\n"
+            f"Hello {name} ,\n"
+            "Your turn will come in 10 minutes! ⏳\n\n"
+            f"🔢 *Token Number:* {token_no}\n\n"
+            "Please proceed to Counter 1. See you soon! 😊"
+        )
+        encoded_msg_admin = urllib.parse.quote(raw_msg_admin)
+        whatsapp_admin_url = f"https://wa.me/91{phone}?text={encoded_msg_admin}"
+
+    return render_template('admin.html.html', tokens=tokens, active_token=active_token, whatsapp_admin_url=whatsapp_admin_url)
 
 @app.route('/next-person')
 def next_person():
