@@ -33,20 +33,26 @@
         </div>
 
         <div class="card">
-            <h2>Waiting Queue</h2>
-            {% if tokens %}
-                <ul class="queue-list">
-                    {% for next in tokens %}
-                        <li class="queue-item">
-                            <span>{{ next.name }}</span>
-                            <strong>#{{ next.token }}</strong>
-                        </li>
-                    {% endfor %}
-                </ul>
+            <h2>Now Serving</h2>
+            {% if active_token %}
+                <div class="current-box">
+                    Token No: {{ active_token.token }} <br>
+                    Name: {{ active_token.name }}
+                </div>
+                <br>
+                <a href="{{ whatsapp_admin_url }}" target="_blank" style="background-color: #25D366; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin-top: 10px;">
+                    📩 Send 10-Min Alert Message
+                </a>
             {% else %}
-                <p style="color: #a5a5a5;">No one is waiting in queue.</p>
+                <p>No active token currently.</p>
             {% endif %}
+            
+            <br><br>
+            <a href="/next-person" class="btn" style="background-color: #00b4d8; text-decoration: none;">Call Next Person →</a>
         </div>
+    
+        
+    
     </div>
 
 </body>
