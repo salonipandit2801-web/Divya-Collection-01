@@ -25,21 +25,16 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Direct emojis used here to fix laptop/browser display issues
-            message_lines = [
-                "✨💰 *DIVYA COLLECTION* 💰✨",
-                "-----------------------------",
-                "",
-                f"Hello {name},",
-                "Your token has been successfully booked! 🎉",
-                "",
-                f"🆔 *Token Number:* {token_no}",
-                "",
-                "Thank you for visiting our shop! 🙏"
-            ]
-            raw_msg = "\n".join(message_lines)
+            # Using direct URL encoding strings to guarantee emoji rendering on laptop web
+            encoded_msg = (
+                "%E2%9C%A8%F0%9F%92%B0%20*DIVYA%20COLLECTION*%20%F0%9F%92%B0%E2%9C%A8%0A"
+                "-----------------------------\n\n"
+                f"Hello%20{urllib.parse.quote(name)},%0A"
+                "Your%20token%20has%20been%20successfully%20booked%21%20%F0%9F%8E%89%0A%0A"
+                f"%F0%9F%8A%94%20*Token%20Number%3A*%20{token_no}%0A%0A"
+                "Thank%20you%20for%20visiting%20our%20shop%21%20%F0%9F%99%8F"
+            )
 
-            encoded_msg = urllib.parse.quote(raw_msg)
             whatsapp_url = f"https://wa.me/91{phone}?text={encoded_msg}"
 
             return render_template('get_token.html.html', success=True, token_no=token_no, whatsapp_url=whatsapp_url)
@@ -62,21 +57,16 @@ def admin():
         token_no = active_token['token']
         phone = active_token['phone']
 
-        # Direct emojis used here for admin message
-        admin_message_lines = [
-            "✨💰 *DIVYA COLLECTION* 💰✨",
-            "-----------------------------",
-            "",
-            f"Hello {name},",
-            "Your turn will come in 10 minutes! ⏳",
-            "",
-            f"🆔 *Token Number:* {token_no}",
-            "",
-            "Please proceed to Counter 1. See you soon! 😊"
-        ]
-        raw_msg_admin = "\n".join(admin_message_lines)
+        # URL encoded format for admin messaging to prevent question marks
+        encoded_msg_admin = (
+            "%E2%9C%A8%F0%9F%92%B0%20*DIVYA%20COLLECTION*%20%F0%9F%92%B0%E2%9C%A8%0A"
+            "-----------------------------\n\n"
+            f"Hello%20{urllib.parse.quote(name)},%0A"
+            "Your%20turn%20will%20come%20in%2010%20minutes%21%20%E2%8F%B3%0A%0A"
+            f"%F0%9F%8A%94%20*Token%20Number%3A*%20{token_no}%0A%0A"
+            "Please%20proceed%20to%20Counter%201.%20See%20you%20soon%21%20%F0%9F%98%8A"
+        )
 
-        encoded_msg_admin = urllib.parse.quote(raw_msg_admin)
         whatsapp_admin_url = f"https://wa.me/91{phone}?text={encoded_msg_admin}"
 
     return render_template('admin.html.html', tokens=tokens, active_token=active_token, whatsapp_admin_url=whatsapp_admin_url)
