@@ -25,16 +25,19 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Message 1: Token Successfully Booked
-            raw_msg = f"""\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728
------------------------------
-
-Hello {name},
-Your token has been successfully booked! \ud83c\udf89
-
-\ud83c\udd94 *Token Number:* {token_no}
-
-Thank you for visiting our shop! \ud83d\ude4f"""
+            # Build message using a clean array to prevent multi-line errors on Render
+            message_lines = [
+                "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728",
+                "-----------------------------",
+                "",
+                f"Hello {name},",
+                "Your token has been successfully booked! \ud83c\udf89",
+                "",
+                f"\ud83c\udd94 *Token Number:* {token_no}",
+                "",
+                "Thank you for visiting our shop! \ud83d\ude4f"
+            ]
+            raw_msg = "\n".join(message_lines)
 
             encoded_msg = urllib.parse.quote(raw_msg)
             whatsapp_url = f"https://wa.me/91{phone}?text={encoded_msg}"
@@ -59,16 +62,19 @@ def admin():
         token_no = active_token['token']
         phone = active_token['phone']
 
-        # Message 2: Admin Notification
-        raw_msg_admin = f"""\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728
------------------------------
-
-Hello {name},
-Your turn will come in 10 minutes! \u23f3
-
-\ud83c\udd94 *Token Number:* {token_no}
-
-Please proceed to Counter 1. See you soon! \ud83d\ude0a"""
+        # Build admin message using a clean array
+        admin_message_lines = [
+            "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728",
+            "-----------------------------",
+            "",
+            f"Hello {name},",
+            "Your turn will come in 10 minutes! \u23f3",
+            "",
+            f"\ud83c\udd94 *Token Number:* {token_no}",
+            "",
+            "Please proceed to Counter 1. See you soon! \ud83d\ude0a"
+        ]
+        raw_msg_admin = "\n".join(admin_message_lines)
 
         encoded_msg_admin = urllib.parse.quote(raw_msg_admin)
         whatsapp_admin_url = f"https://wa.me/91{phone}?text={encoded_msg_admin}"
