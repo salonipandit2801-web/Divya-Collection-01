@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import os
 import urllib.parse
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='.') 
 
 tokens = []
 next_token_no = 101
