@@ -52,7 +52,7 @@ def contact():
 @app.route('/admin')
 def admin():
     global active_token
-    # If admin calls next person, generate the Counter Alert WhatsApp URL
+    # If admin calls next person, generate the Counter Alert WhatsApp URL 
     whatsapp_admin_url = None
     if active_token:
         name = active_token['name']
