@@ -1,3 +1,4 @@
+#-*-coding:utf-8-*-
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import urllib.parse
@@ -25,14 +26,15 @@ def get_token():
             tokens.append(customer)
 
             # Message 1: Token Successfully Booked (Sent to Customer)
-            raw_msg = (
-                "✨🛍️ *DIVYA COLLECTION* 🛍️✨\n"
-                "━━━━━━━━━━━━━━━━━━━\n\n"
-                f"Hello {name} ,\n"
-                "Your token has been successfully booked! 🎉\n\n"
-                f"🆔 *Token Number:* {token_no}\n\n"
-                "Thank you for visiting our shop! 🙏"
-            )
+           raw_msg = (
+        "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728\n"
+        "-----------------------------\n\n"
+        f"Hello {name},\n"
+        "Your token has been successfully booked! \ud83c\udf89\n\n"
+        f"\ud83c\udd94 *Token Number:* {token_no}\n\n"
+        "Thank you for visiting our shop! \ud83d\ude4f"
+            
+    )
             encoded_msg = urllib.parse.quote(raw_msg)
             whatsapp_url = f"https://wa.me/91{phone}?text={encoded_msg}"
 
@@ -59,13 +61,14 @@ def admin():
         
         # Message 2: Your turn will come in 10 minutes! (Sent by Admin)
         raw_msg_admin = (
-            "✨🛍️ *DIVYA COLLECTION* 🛍️✨\n"
-            "━━━━━━━━━━━━━━━━━━━\n\n"
-            f"Hello {name} ,\n"
-            "Your turn will come in 10 minutes! ⏳\n\n"
-            f"🔢 *Token Number:* {token_no}\n\n"
-            "Please proceed to Counter 1. See you soon! 😊"
-        )
+        "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728\n"
+        "-----------------------------\n\n"
+        f"Hello {name},\n"
+        "Your turn will come in 10 minutes! \u23f3\n\n"
+        f"\ud83c\udd94 *Token Number:* {token_no}\n\n"
+        "Please proceed to Counter 1. See you soon! \ud83d\ude0a"
+    )
+        
         encoded_msg_admin = urllib.parse.quote(raw_msg_admin)
         whatsapp_admin_url = f"https://wa.me/91{phone}?text={encoded_msg_admin}"
 
