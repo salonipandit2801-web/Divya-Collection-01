@@ -25,17 +25,17 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Build message using a clean array to prevent multi-line errors on Render
+            # Using standard 32-bit Python Unicodes to fix Render server error
             message_lines = [
-                "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728",
+                "\u2728\U0001F4B0 *DIVYA COLLECTION* \U0001F4B0\u2728",
                 "-----------------------------",
                 "",
                 f"Hello {name},",
-                "Your token has been successfully booked! \ud83c\udf89",
+                "Your token has been successfully booked! \U0001F389",
                 "",
-                f"\ud83c\udd94 *Token Number:* {token_no}",
+                f"\U0001F194 *Token Number:* {token_no}",
                 "",
-                "Thank you for visiting our shop! \ud83d\ude4f"
+                "Thank you for visiting our shop! \U0001F64F"
             ]
             raw_msg = "\n".join(message_lines)
 
@@ -62,17 +62,17 @@ def admin():
         token_no = active_token['token']
         phone = active_token['phone']
 
-        # Build admin message using a clean array
+        # Using standard 32-bit Python Unicodes to fix Render server error
         admin_message_lines = [
-            "\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728",
+            "\u2728\U0001F4B0 *DIVYA COLLECTION* \U0001F4B0\u2728",
             "-----------------------------",
             "",
             f"Hello {name},",
             "Your turn will come in 10 minutes! \u23f3",
             "",
-            f"\ud83c\udd94 *Token Number:* {token_no}",
+            f"\U0001F194 *Token Number:* {token_no}",
             "",
-            "Please proceed to Counter 1. See you soon! \ud83d\ude0a"
+            "Please proceed to Counter 1. See you soon! \U0001F60A"
         ]
         raw_msg_admin = "\n".join(admin_message_lines)
 
