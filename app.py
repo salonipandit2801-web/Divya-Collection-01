@@ -1,9 +1,9 @@
-#-*-coding:utf-8-*-
+# -*- coding: utf-8 -*-
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import urllib.parse
 
-app = Flask(__name__, template_folder='.') 
+app = Flask(__name__, template_folder='.')
 
 tokens = []
 next_token_no = 101
@@ -25,8 +25,8 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Message 1: Token Successfully Booked (Sent to Customer)
-           raw_msg = f"""\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728
+            # Message 1: Token Successfully Booked
+            raw_msg = f"""\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728
 -----------------------------
 
 Hello {name},
@@ -35,7 +35,7 @@ Your token has been successfully booked! \ud83c\udf89
 \ud83c\udd94 *Token Number:* {token_no}
 
 Thank you for visiting our shop! \ud83d\ude4f"""
-        
+
             encoded_msg = urllib.parse.quote(raw_msg)
             whatsapp_url = f"https://wa.me/91{phone}?text={encoded_msg}"
 
@@ -53,14 +53,13 @@ def contact():
 @app.route('/admin')
 def admin():
     global active_token
-    # If admin calls next person, generate the Counter Alert WhatsApp URL 
     whatsapp_admin_url = None
     if active_token:
         name = active_token['name']
         token_no = active_token['token']
         phone = active_token['phone']
-        
-        # Message 2: Your turn will come in 10 minutes! (Sent by Admin)
+
+        # Message 2: Admin Notification
         raw_msg_admin = f"""\u2728\ud83d\udcb0 *DIVYA COLLECTION* \ud83d\udcb0\u2728
 -----------------------------
 
@@ -70,7 +69,7 @@ Your turn will come in 10 minutes! \u23f3
 \ud83c\udd94 *Token Number:* {token_no}
 
 Please proceed to Counter 1. See you soon! \ud83d\ude0a"""
-        
+
         encoded_msg_admin = urllib.parse.quote(raw_msg_admin)
         whatsapp_admin_url = f"https://wa.me/91{phone}?text={encoded_msg_admin}"
 
