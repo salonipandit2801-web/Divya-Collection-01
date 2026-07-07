@@ -25,17 +25,17 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Using standard 32-bit Python Unicodes to fix Render server error
+            # Direct emojis used here to fix laptop/browser display issues
             message_lines = [
-                "\u2728\U0001F4B0 *DIVYA COLLECTION* \U0001F4B0\u2728",
+                "✨💰 *DIVYA COLLECTION* 💰✨",
                 "-----------------------------",
                 "",
                 f"Hello {name},",
-                "Your token has been successfully booked! \U0001F389",
+                "Your token has been successfully booked! 🎉",
                 "",
-                f"\U0001F194 *Token Number:* {token_no}",
+                f"🆔 *Token Number:* {token_no}",
                 "",
-                "Thank you for visiting our shop! \U0001F64F"
+                "Thank you for visiting our shop! 🙏"
             ]
             raw_msg = "\n".join(message_lines)
 
@@ -62,17 +62,17 @@ def admin():
         token_no = active_token['token']
         phone = active_token['phone']
 
-        # Using standard 32-bit Python Unicodes to fix Render server error
+        # Direct emojis used here for admin message
         admin_message_lines = [
-            "\u2728\U0001F4B0 *DIVYA COLLECTION* \U0001F4B0\u2728",
+            "✨💰 *DIVYA COLLECTION* 💰✨",
             "-----------------------------",
             "",
             f"Hello {name},",
-            "Your turn will come in 10 minutes! \u23f3",
+            "Your turn will come in 10 minutes! ⏳",
             "",
-            f"\U0001F194 *Token Number:* {token_no}",
+            f"🆔 *Token Number:* {token_no}",
             "",
-            "Please proceed to Counter 1. See you soon! \U0001F60A"
+            "Please proceed to Counter 1. See you soon! 😊"
         ]
         raw_msg_admin = "\n".join(admin_message_lines)
 
