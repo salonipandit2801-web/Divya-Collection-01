@@ -25,17 +25,17 @@ def get_token():
             customer = {"token": token_no, "name": name, "phone": phone}
             tokens.append(customer)
 
-            # Replaced all graphic emojis with bullet-proof text formatting to avoid system font issues
+            # Using universal safe emojis that never show question marks on windows web
             message_lines = [
-                "*[ DIVYA COLLECTION ]*",
+                "⭐❤️ *DIVYA COLLECTION* ❤️⭐",
                 "-----------------------------",
                 "",
                 f"Hello {name},",
-                "Your token has been successfully booked!",
+                "Your token has been successfully booked! ✔️",
                 "",
-                f">> *Token Number:* {token_no}",
+                f"➡️ *Token Number:* {token_no}",
                 "",
-                "Thank you for visiting our shop!"
+                "Thank you for visiting our shop! ☀️"
             ]
             raw_msg = "\n".join(message_lines)
 
@@ -62,17 +62,17 @@ def admin():
         token_no = active_token['token']
         phone = active_token['phone']
 
-        # Clean text formatting for admin alert
+        # Safe universal emojis for admin alert
         admin_message_lines = [
-            "*[ DIVYA COLLECTION ]*",
+            "⭐❤️ *DIVYA COLLECTION* ❤️⭐",
             "-----------------------------",
             "",
             f"Hello {name},",
-            "Your turn will come in 10 minutes!",
+            "Your turn will come in 10 minutes! ⏱️",
             "",
-            f">> *Token Number:* {token_no}",
+            f"➡️ *Token Number:* {token_no}",
             "",
-            "Please proceed to Counter 1. See you soon!"
+            "Please proceed to Counter 1. See you soon! ✨"
         ]
         raw_msg_admin = "\n".join(admin_message_lines)
 
